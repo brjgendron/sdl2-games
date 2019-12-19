@@ -1,6 +1,8 @@
 #ifndef window_hpp
 #define window_hpp
 
+#include <GL/glew.h>
+// #include <GL/glu.h>
 #include <SDL2/SDL.h>
 
 class Window {
@@ -8,7 +10,7 @@ class Window {
 		Window(const char *title, int x, int y, int width, int height);
 		~Window();
 
-		void init();
+		int windowInit();
 		void handleEvents();
 		void update();
 		void render();
@@ -19,14 +21,22 @@ class Window {
 		}
 
 	private:
+		int num = 0;
 		const char *title;
 		int width;
 		int height;
 		int x;
 		int y;
-		bool running;
+		bool running = true;
+		
 		SDL_Window *window;
-		SDL_Renderer *renderer;
+		SDL_GLContext glContext;
+
+		GLuint gProgramID = 0,
+		       gVBO = 0,
+		       gVAO = 0;
+
+		int gWindowInit();
 };
 
 #endif /* window_hpp */
